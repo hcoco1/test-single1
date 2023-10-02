@@ -47,3 +47,61 @@
   color: white;
   cursor: pointer;
 }
+
+.user-card-list {
+  width: 17rem;
+  margin-top: 4%;  
+}
+
+
+/* Parent Styles */
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+/* Card Styles */
+.user-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #ffffff;
+  transition: transform .2s;
+}
+
+.user-card:hover {
+  transform: scale(1.05);
+}
+
+/* Image Styles */
+.user-card img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* Name Styles */
+.user-card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+/* Email Styles */
+.user-card p {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.react-icons {
+  vertical-align: middle;
+  size: 30em
+}

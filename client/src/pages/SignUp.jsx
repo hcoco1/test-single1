@@ -1,6 +1,53 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import styled from 'styled-components';
+
+const FacebookBlue = '#1877F2';
+const White = '#FFFFFF';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${FacebookBlue};
+  height: 100vh;
+  padding: 50px 0;
+`;
+
+const StyledForm = styled(Form)`
+  background-color: ${White};
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+`;
+
+const StyledField = styled(Field)`
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const StyledErrorMessage = styled(ErrorMessage)`
+  color: red;
+  font-size: 12px;
+`;
+
+const SubmitButton = styled.button`
+  background-color: ${FacebookBlue};
+  color: ${White};
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #155293;
+  }
+`;
 
 const initialValues = {
   first_name: '',
@@ -20,12 +67,6 @@ const validationSchema = Yup.object().shape({
   first_name: Yup.string().required('First Name is required'),
   last_name: Yup.string().required('Last Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
-  address: Yup.string(),
-  biography: Yup.string(),
-  hobbies: Yup.string(),
-  photo_url: Yup.string(),
-  birth_date: Yup.date(),
-  privacy_settings: Yup.string(),
   password: Yup.string()
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters long'),
@@ -34,129 +75,57 @@ const validationSchema = Yup.object().shape({
     .required('Confirm Password is required'),
 });
 
-function SignupForm({ onSubmit }) {
+const FacebookStyledForm = () => {
+  const onSubmit = (values, actions) => {
+    console.log('Form data:', values);
+    actions.resetForm();
+  };
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {({ errors, touched }) => (
-        <Form>
-          <div>
-          <h2>Register</h2>
-            <label htmlFor="first_name">First Name</label>
-            <Field
-              type="text"
-              name="first_name"
-              placeholder="First Name"
-            />
-            <ErrorMessage name="first_name" component="div" />
-          </div>
+    <Container>
+<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+    {() => (
+        <StyledForm>
+            <StyledField name="first_name" placeholder="First Name" />
+            <StyledErrorMessage name="first_name" component="div" />
 
-          <div>
-            <label htmlFor="last_name">Last Name</label>
-            <Field
-              type="text"
-              name="last_name"
-              placeholder="Last Name"
-            />
-            <ErrorMessage name="last_name" component="div" />
-          </div>
+            <StyledField name="last_name" placeholder="Last Name" />
+            <StyledErrorMessage name="last_name" component="div" />
 
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field
-              type="text"
-              name="email"
-              placeholder="Email"
-            />
-            <ErrorMessage name="email" component="div" />
-          </div>
+            <StyledField name="email" placeholder="Email" />
+            <StyledErrorMessage name="email" component="div" />
 
-          <div>
-            <label htmlFor="address">Address</label>
-            <Field
-              type="text"
-              name="address"
-              placeholder="Address"
-            />
-          </div>
+            <StyledField name="address" placeholder="Address" />
+            <StyledErrorMessage name="address" component="div" />
 
-          <div>
-            <label htmlFor="biography">Biography</label>
-            <Field
-              as="textarea"
-              name="biography"
-              placeholder="Biography"
-              rows="4"
-            />
-          </div>
+            <StyledField name="biography" placeholder="Biography" as="textarea" />
+            <StyledErrorMessage name="biography" component="div" />
 
-          <div>
-            <label htmlFor="hobbies">Hobbies</label>
-            <Field
-              as="textarea"
-              name="hobbies"
-              placeholder="Hobbies"
-              rows="4"
-            />
-          </div>
+            <StyledField name="hobbies" placeholder="Hobbies" as="textarea" />
+            <StyledErrorMessage name="hobbies" component="div" />
 
-          <div>
-            <label htmlFor="photo_url">Photo URL</label>
-            <Field
-              type="text"
-              name="photo_url"
-              placeholder="Photo URL"
-            />
-          </div>
+            <StyledField name="photo_url" placeholder="Photo URL" />
+            <StyledErrorMessage name="photo_url" component="div" />
 
-          <div>
-            <label htmlFor="birth_date">Birth Date</label>
-            <Field
-              type="date"
-              name="birth_date"
-              placeholder="Birth Date"
-            />
-          </div>
+            <StyledField name="birth_date" placeholder="Birth Date" type="date" />
+            <StyledErrorMessage name="birth_date" component="div" />
 
-          <div>
-            <label htmlFor="privacy_settings">Privacy Settings</label>
-            <Field
-              type="text"
-              name="privacy_settings"
-              placeholder="Privacy Settings"
-            />
-          </div>
+            <StyledField name="privacy_settings" placeholder="Privacy Settings" />
+            <StyledErrorMessage name="privacy_settings" component="div" />
 
-          <div>
-            <label htmlFor="password">Password</label>
-            <Field
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-            <ErrorMessage name="password" component="div" />
-          </div>
+            <StyledField name="password" placeholder="Password" type="password" />
+            <StyledErrorMessage name="password" component="div" />
 
-          <div>
-            <label htmlFor="confirm_password">Confirm Password</label>
-            <Field
-              type="password"
-              name="confirm_password"
-              placeholder="Confirm Password"
-            />
-            <ErrorMessage name="confirm_password" component="div" />
-          </div>
+            <StyledField name="confirm_password" placeholder="Confirm Password" type="password" />
+            <StyledErrorMessage name="confirm_password" component="div" />
 
-          <div>
-            <button type="submit">Sign Up</button>
-          </div>
-        </Form>
-      )}
-    </Formik>
+            <SubmitButton type="submit">Sign Up</SubmitButton>
+        </StyledForm>
+    )}
+</Formik>
+
+    </Container>
   );
-}
+};
 
-export default SignupForm;
+export default FacebookStyledForm;
