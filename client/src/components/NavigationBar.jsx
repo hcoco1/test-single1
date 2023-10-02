@@ -7,21 +7,31 @@ function NavigationBar() {
     <nav className="navbar navbar-dark bg-dark">
       <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
         <ul className="navbar-nav" style={{ flexDirection: 'row', alignItems: 'center', listStyleType: 'none' }}>
-          <li className="nav-item" style={{ marginRight: '10px' }}>
-            <Link to="/" className="nav-link">
-              <FaHome /> Home
-            </Link>
-          </li>
-          <li className="nav-item" style={{ marginRight: '10px' }}>
-            <Link to="/dashboard" className="nav-link">
-              <FaSignInAlt /> Sign In / Sign Up
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/signup" className="nav-link">
-              <FaSignOutAlt /> Sign Out
-            </Link>
-          </li>
+          
+              <li className="nav-item" style={{ marginRight: '10px' }}>
+                <Link to="/" className="nav-link">
+                  <FaHome /> Home
+                </Link>
+              </li>
+
+              <li className="nav-item" style={{ marginRight: '10px' }}>
+                <Link to="/signin" className="nav-link">
+                  <FaSignInAlt /> Sign In
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/signup" className="nav-link">
+                  <FaSignOutAlt /> Sign Up
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to="/users" className="nav-link">
+                  <FaSignOutAlt /> People
+                </Link>
+              </li>
+
         </ul>
       </div>
     </nav>

@@ -5,28 +5,35 @@ import SignIn from "../pages/SignIn";
 import UsersList from "./UsersList";
 import UserByID from "./UserByID";
 import NavigationBar from "./NavigationBar";
-import Dashboard from "./Dashboard";
-import {DataProvider} from "../dataContext/DataContext";
+import { DataProvider } from "../dataContext/DataContext";
+import ProtectedRoute from './ProtectedRoute'; // Import the ProtectedRoute component
 
 function App() {
   return (
-<DataProvider>
-    <div className="App">
-      <NavigationBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />}> 
-          <Route index element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} /> 
-          <Route path="users" element={<UsersList />} />
-        </Route>
-        <Route path="/users/:id" element={<UserByID />} />
-      </Routes>
-    </div>
-</DataProvider>
-
+    <DataProvider>
+      <div className="App">
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/users" element={
+            <ProtectedRoute>
+              <UsersList />
+            </ProtectedRoute>
+          } />
+          <Route path="/users/:id" element={
+            <ProtectedRoute>
+              <UserByID />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </div>
+    </DataProvider>
   );
 }
 
 export default App;
+
+
 

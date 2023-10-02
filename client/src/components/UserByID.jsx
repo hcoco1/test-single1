@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../index.css';
 
 
 function UserDetails() {
 
-
-
     const [user, setUser] = useState(null);
     const { id } = useParams(); // Get the user ID from the URL
+    const navigate = useNavigate(); // Use navigate instead of history
 
     useEffect(() => {
         async function fetchUser() {
@@ -33,6 +32,30 @@ function UserDetails() {
         return <p>Loading...</p>;
     }
 
+
+    const deleteUser = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:5555/users/${id}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                alert('User deleted successfully!');
+                navigate('/'); // Use navigate to redirect
+            } else {
+                const data = await response.json();
+                console.error(data.message);
+            }
+        } catch (error) {
+            console.error('There was an error deleting the user:', error);
+        }
+    };
+
+    if (!user) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="parent-container">
 
@@ -47,6 +70,7 @@ function UserDetails() {
                 <p >Email: {user.biography}</p>
                 {/* Add more user details as needed */}
             </div>
+            <button onClick={deleteUser}>Delete User</button> {/* Add delete button */}
 
 
         </div>

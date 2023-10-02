@@ -72,7 +72,7 @@ if __name__ == "__main__":
         print("Starting seed...")
 
         # Create 100 random users
-        for _ in range(10):
+        for _ in range(20):
             user = create_random_user()
             db.session.add(user)
 

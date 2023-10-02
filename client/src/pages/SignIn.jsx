@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useData } from '../dataContext/DataContext';
+
 
 const Container = styled.div`
   display: flex;
@@ -54,6 +56,7 @@ const validationSchema = Yup.object().shape({
 
 function LoginForm() {
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useData();
 
   async function handleSubmit(values) {
     try {
@@ -62,16 +65,20 @@ function LoginForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
+        credentials: 'include' // Send cookies with the request
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        setIsAuthenticated(true); // Set isAuthenticated to true
+        console.log("Redirecting to /users");
         navigate('/users'); // Redirect using the navigate function
       } else {
         console.error(data.message);
       }
+      
     } catch (error) {
       console.error('There was an error logging in', error);
     }

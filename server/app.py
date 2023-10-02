@@ -10,12 +10,17 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG,
+                    format='[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+
 load_dotenv()
 
 
 app.secret_key = os.getenv("SECRET_KEY")
-app.permanent_session_lifetime = timedelta(minutes=5)
+print(app.secret_key)
+
+
+
 
 
 class Home(Resource):
@@ -133,8 +138,10 @@ class CheckSession(Resource):
         Endpoint to check if the user is currently logged in
         """
 
+        # Log the session data
+        logging.debug(f"Session data: {session}")
+
         # Get the user from the database using the user ID in the session
-        print(session)
         user = User.query.filter(User.id == session.get("user_id")).first()
 
         if user:
@@ -147,7 +154,9 @@ class CheckSession(Resource):
             }, 200
         else:
             # If no user is found, return an unauthorized message with a 401 status
+            logging.warning("Unauthorized access attempt detected.")
             return {"Message": "Unauthorized"}, 401
+
 
 
 class SignOut(Resource):
